@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="content">
+				<component :is="com"></component>
+			</div>
+			<button type="button"  @click="chooseContent(1)">首页</button>
+			<button type="button"  @click="chooseContent(2)">列表</button>
+			<button type="button"  @click="chooseContent(3)">新闻</button>
+			<button type="button"  @click="chooseContent(4)">个人</button>
+		</div>
+		<script type="text/javascript">
+		let com1=Vue.component("index-com",{
+				
+				template:"<h1>首页内容</h1>"
+			})
+		let com2=	Vue.component("list-com",{
+				template:"<h1>列表内容</h1>"
+				
+			})
+		let com3=	Vue.component("news-com",{
+				template:"<h1>新闻内容</h1>"
+				
+			})
+		let com4=	Vue.component("me-com",{
+				template:"<h1>个人中心内容</h1>"
+				
+			})
+			let app=new Vue({
+				el:"#app",
+				methods:{
+					chooseContent:function(e){
+						// this.com="com"+e
+						this.com=this.$options.components['com'+e]
+					},
+				},
+				data:{
+					com:com1
+				},
+				components:{
+					com1,com2,com3,com4
+				}
+			})
+		</script>
+	</body>
+</html>

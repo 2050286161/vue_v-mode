@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<alert-com :content="content"></alert-com>
+			<alert-com_1>
+			<p>{{content}},abv</p>	
+			</alert-com_1>
+				<!-- slot里面的内容只跟父元素有关 -->
+		</div>
+		<script type="text/javascript">
+			Vue.component('alert-com',{
+				props:["content"],
+				template:`<div class="alter">
+					<h1>温馨提示</h1>
+					<div class="content">
+						{{content}}
+					</div>
+				</div>`
+			})
+			Vue.component('alert-com_1',{
+				template:`<div class="alter">
+					<h1>温馨提示</h1>
+					<div class="content">
+						<slot><slot>
+					</div>
+				</div>`
+			})
+			let app=new Vue({
+				el:"#app",
+				data:{
+					content:"小心熊出没"
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="js/vue.js" type="text/javascript">
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<!-- 因为父元素的方法可以直接修改父元素的数据
+				 所以将父元素的方法传递给子元素
+				 然后由子元素进行调用，从而修改父元素的数据-->
+				<school v-for="item,index in shcools" :index="index" :schoolname="item"></school>
+			</ul>
+			<h2>选中的学校是:{{chooseschool}}</h2>
+		</div>
+		<script type="text/javascript">
+			// 在视图中直接使用$root调用根元素对象
+			Vue.component("school",{
+				props:["schoolname","index"],
+				template:`<li>
+				<h3>{{index}}学校名称:{{schoolname}}</h3>
+				<button @click="$root.changeEvent(schoolname)">选择学校</button>
+					</li>`,
+			})
+			let vue=new Vue({
+				el:"#app",
+				data:{
+					shcools:['清华','北大','哈佛','耶鲁'],
+					chooseschool:""
+				},
+				methods:{
+					changeEvent:function(e){
+						this.chooseschool=e
+					// this.children[index]
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
